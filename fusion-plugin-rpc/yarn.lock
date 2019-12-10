@@ -735,6 +735,11 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@koa/multer@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/@koa/multer/-/multer-2.0.1.tgz#7511161b204f446f4d4120ac67d944bf0dd57d59"
+  integrity sha512-Tn9JUwGAGb3CKsAr9hrTjTrQU+83Tk9VBwx/+3yIF0DSrXeFYg3C0LZgfqcDSQK1buOha8ZqW0rh0BGyVi9tRQ==
+
 "@rtsao/babel-preset-env@^7.0.0-beta.31":
   version "7.0.0-beta.31"
   resolved "https://registry.npmjs.org/@rtsao/babel-preset-env/-/babel-preset-env-7.0.0-beta.31.tgz#ac7e56227a41af3aa3a06d352c9ea6b8fb2f620a"

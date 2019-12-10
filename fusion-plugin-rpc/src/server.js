@@ -9,6 +9,7 @@
 /* eslint-env node */
 
 import bodyparser from 'koa-bodyparser';
+import multer from '@koa/multer';
 
 import {createPlugin, memoize} from 'fusion-core';
 import type {Context} from 'fusion-core';
@@ -126,6 +127,8 @@ const pluginFactory: () => RPCPluginType = () =>
       if (!emitter)
         throw new Error('Missing emitter registered to UniversalEventsToken');
       const parseBody = bodyparser(bodyParserOptions);
+      const upload = multer();
+      const parseFile = upload.single('file');
 
       const apiPath = formatApiPath(
         rpcConfig && rpcConfig.apiPath ? rpcConfig.apiPath : 'api'
@@ -141,7 +144,11 @@ const pluginFactory: () => RPCPluginType = () =>
           const [, method] = ctx.path.match(pathMatch) || [];
           if (hasHandler(handlers, method)) {
             try {
-              await parseBody(ctx, () => Promise.resolve());
+              if (ctx.headers && ctx.headers['content-type'] &&  ctx.headers['content-type'].indexOf('multipart/form-data') !== -1) {
+                await parseFile(ctx, () => Promise.resolve());
+              } else {
+                await parseBody(ctx, () => Promise.resolve());
+              }             
             } catch (e) {
               ctx.body = {
                 status: 'failure',
